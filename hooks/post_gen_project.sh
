@@ -1,0 +1,1 @@
+sqlacodegen '{{ cookiecutter.postgres_url }}' >> ./src/data/local/models.py
