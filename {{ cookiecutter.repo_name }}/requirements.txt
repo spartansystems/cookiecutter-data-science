@@ -8,6 +8,7 @@ sqlalchemy
 alembic
 psycopg2
 jupyter
+jupyterhub
 numpy
 pandas
 scipy
