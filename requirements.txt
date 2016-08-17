@@ -1,3 +1,6 @@
 mkdocs
 mkdocs-cinder
 cookiecutter
+sqlalchemy
+psycopg2
+sqlacodegen
