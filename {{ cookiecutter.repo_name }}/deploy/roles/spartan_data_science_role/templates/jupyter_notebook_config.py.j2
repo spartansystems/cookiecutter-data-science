@@ -1,7 +1,0 @@
-{% if nb_python_path != '' %}
-import sys
-sys.path.append('{{ nb_python_path }}')
-{% endif %}
-
-c.Examples.reviewed_example_dir = '{{ nb_review_dir }}'
-c.Examples.unreviewed_example_dir = '{{ nb_unreview_dir }}'

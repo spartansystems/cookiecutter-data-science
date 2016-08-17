@@ -1,7 +1,0 @@
-
-- name: symbolic link to src dir
-  file:
-    src: '{{ nb_python_path }}'
-    dest: /usr/lib/python3/dist-packages/src
-    state: link
-  become: true

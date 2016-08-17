@@ -16,7 +16,6 @@
     install_juliakernel: true
     jhc_local_authenticator_create_system_users: true
     jhc_jupyterhub_authenticator_class: 'oauthenticator.google.LocalGoogleOAuthenticator'
-    google_auth_domain: 'spartansystems.co'
     google_login_service: 'Spartan Notebooks'
 
  
