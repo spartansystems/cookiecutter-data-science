@@ -1,0 +1,87 @@
+- name: add jupyter group
+  group: name=jupyter state=present
+  tags: jupyter
+
+- name: add jupyter user
+  user: name=jupyter state=present groups=jupyter,shadow password="{{ lookup('env', 'JUPYTER_USER_PW') }}"
+  tags: jupyter
+
+- name: create jupyter config dir
+  file: path=/etc/jupyter state=directory owner=jupyter group=jupyter mode=0777
+
+- name: create jupyter config file
+  template:
+    src: ../templates/jupyter_notebook_config.py.j2
+    dest: /etc/jupyter/jupyter_notebook_config.py
+    mode: 777
+    owner: jupyter
+    group: jupyter
+
+- name: copy requirements file for jupyter
+  copy: 
+    src: jupyter_requirements.txt 
+    dest: /root/jupyter_requirements.txt
+  tags: jupyter
+
+- name: install jupyter via pip3
+  pip: executable=pip3 requirements="/root/jupyter_requirements.txt" extra_args='--upgrade'
+  tags: jupyter
+  environment:
+    JUPYTER_CONFIG_DIR: '/etc/jupyter'
+    JUPYTER_DATA_DIR: '/usr/local/share/jupyter'
+
+- name: install nbexamples via pip3
+  pip: executable=pip3 name="git+https://github.com/danielballan/nbexamples" extra_args='--upgrade' editable=false
+  tags: jupyter
+  environment:
+    JUPYTER_CONFIG_DIR: '/etc/jupyter'
+    JUPYTER_DATA_DIR: '/usr/local/share/jupyter'
+
+- name: install dashboard via pip3
+  pip: executable=pip3 name="jupyter_dashboards" extra_args='--upgrade' editable=false
+  tags: jupyter
+  environment:
+    JUPYTER_CONFIG_DIR: '/etc/jupyter'
+    JUPYTER_DATA_DIR: '/usr/local/share/jupyter'
+
+- name: add the dashboard to jupyter
+  command: 'jupyter dashboards quick-setup --nbextensions=/usr/local/share/jupyter/nbextensions'
+  args:
+    creates: '/usr/local/share/jupyter/nbextensions/jupyter_dashboards'
+  environment:
+    JUPYTER_CONFIG_DIR: '/etc/jupyter'
+    JUPYTER_DATA_DIR: '/usr/local/share/jupyter'
+
+- name: install dashboard bundlers via pip3
+  pip: executable=pip3 name="jupyter_dashboards_bundlers" extra_args='--upgrade' editable=false
+  tags: jupyter
+  environment:
+    JUPYTER_CONFIG_DIR: '/etc/jupyter'
+    JUPYTER_DATA_DIR: '/usr/local/share/jupyter'
+
+- name: add the dashboard to jupyter
+  command: 'jupyter cms quick-setup --nbextensions=/usr/local/share/jupyter/nbextensions'
+  args:
+    creates: '/usr/local/share/jupyter/nbextensions/jupyter_cms'
+  environment:
+    JUPYTER_CONFIG_DIR: '/etc/jupyter'
+    JUPYTER_DATA_DIR: '/usr/local/share/jupyter'
+
+- name: add the dashboard to jupyter
+  command: 'jupyter dashboards_bundlers quick-setup --nbextensions=/usr/local/share/jupyter/nbextensions' 
+  environment:
+    JUPYTER_CONFIG_DIR: '/etc/jupyter'
+    JUPYTER_DATA_DIR: '/usr/local/share/jupyter'
+
+- name: modify jupyter data directory
+  file: path=/usr/local/share/jupyter owner=jupyter group=jupyter mode=0777 recurse=yes
+
+- name: create nbexamples share2
+  file: path={{ nb_unreview_dir }} state=directory owner=jupyter group=jupyter mode=0777
+
+- name: create nbexamples share3
+  file: path={{ nb_review_dir }} state=directory owner=jupyter group=jupyter mode=0777
+
+- name: change permissions for jupyter config
+  file: path=/etc/jupyter state=directory owner=jupyter group=jupyter mode=0777 recurse=yes
+    

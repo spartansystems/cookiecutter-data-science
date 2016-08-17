@@ -1,0 +1,2 @@
+- src: git+git@github.com:spartansystems/spartan_data_science_role.git
+  version: origin/master

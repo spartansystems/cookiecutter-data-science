@@ -1,0 +1,34 @@
+---
+# file: roles/jupyter/vars/main.yml
+
+general_pkgs:
+  - git
+  - sudo
+
+pythreekernel_pkgs:
+  - python3
+  - python3-setuptools
+  - python3-dev
+  - python3-pip
+
+pytwokernel_pkgs:
+  - python
+  - python-setuptools
+  - python-dev
+  - python-pip
+
+jupyter_pkgs: []
+
+jupyterhub_pkgs:
+  - npm
+  - nodejs-legacy
+
+_jhc_dir: "/etc/jupyterhub"
+_jhc_cert_data: ""
+_jhc_ssl_cert: ""
+_jhc_ssl_key: ""
+# _jhc_cert_data: "/C={{ jhc_country }}/ST={{ jhc_state }}/L={{ jhc_city }}/O={{ jhc_organization }}/CN={{ jhc_admin }}"
+# _jhc_ssl_cert: "{{ _jhc_dir }}/jupyterhub.crt"
+# _jhc_ssl_key: "{{ _jhc_dir }}/jupyterhub.key"
+_jhc_config: "{{ _jhc_dir }}/jupyterhub_config.py"
+_jhc_cookie: "{{ _jhc_dir }}/cookie"

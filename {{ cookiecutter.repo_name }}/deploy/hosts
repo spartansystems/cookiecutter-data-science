@@ -1,0 +1,2 @@
+[production]
+{{ cookie_cutter.jh_host }} ansible_ssh_user={{ cookie_cutter.jh_ssh_user }}

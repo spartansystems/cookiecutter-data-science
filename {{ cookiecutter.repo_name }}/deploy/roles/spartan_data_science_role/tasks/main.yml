@@ -1,0 +1,54 @@
+---
+# file: roles/jupyter/tasks/main.yml
+
+# Installations
+- name: install general packages
+  apt: name={{item}} state=present update_cache=yes
+  with_items: "{{ general_pkgs }}"
+  tags: general
+
+- name: install python3 packages
+  apt: name={{item}} state=present update_cache=yes
+  with_items: "{{ pythreekernel_pkgs }}"
+  tags: python3
+  when: install_jupyterhub or install_py3kernel
+
+- name: install python2 packages
+  apt: name={{item}} state=present update_cache=yes
+  with_items: "{{ pytwokernel_pkgs }}"
+  tags: python2
+  when: install_py2kernel
+
+- name: install jupyterhub packages
+  apt: name={{item}} state=present update_cache=yes
+  with_items: "{{ jupyterhub_pkgs }}"
+  tags: jupyterhub
+  when: install_jupyterhub
+
+- name: install npm package configurable-http-proxy
+  npm: name=configurable-http-proxy global=yes state=present
+  tags: jupyter
+  when: install_jupyterhub
+
+# Configurations
+- include: py3kernel_config.yml
+  when: install_jupyterhub or install_py3kernel
+
+- include: py2kernel_config.yml
+  when: install_py2kernel
+
+- include: jupyter_config.yml
+  when: install_jupyter
+
+- include: juliakernel_config.yml
+  when: install_juliakernel
+
+- include: jupyterhub_config.yml
+  when: install_jupyterhub
+
+
+# Restart Services
+- name: start jupyterhub
+  service: name=jupyterhub enabled=yes state=restarted
+  become: true
+  tags: jupyter
