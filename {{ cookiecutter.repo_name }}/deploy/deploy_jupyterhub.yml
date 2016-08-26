@@ -14,6 +14,7 @@
     install_py2kernel: true
     install_py3kernel: true
     install_juliakernel: true
+    jhc_env_path: /home/{{ cookiecutter.jh_user }}/{{ cookiecutter.repo_name }}/.env
     jhc_local_authenticator_create_system_users: true
     jhc_jupyterhub_authenticator_class: 'oauthenticator.google.LocalGoogleOAuthenticator'
     google_login_service: 'Spartan Notebooks'
