@@ -1,2 +1,5 @@
-[production]
+[jupyterhub]
 {{ cookie_cutter.jh_host }} ansible_ssh_user={{ cookie_cutter.jh_ssh_user }}
+
+[dashboards]
+{{ cookie_cutter.dash_host }} ansible_ssh_user={{ cookie_cutter.dash_ssh_user }}

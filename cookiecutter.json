@@ -11,5 +11,7 @@
     "github_email": "saas@spartansystems.com",
     "jh_host": "jupyterhub host",
     "jh_ssh_user": "ubuntu",
-    "jh_user": "spartan"
+    "jh_user": "spartan",
+    "dash_host": "dashboard host",
+    "dash_ssh_user": "ubuntu"
 }

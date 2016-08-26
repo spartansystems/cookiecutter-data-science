@@ -28,9 +28,13 @@ sync_data_to_s3:
 sync_data_from_s3:
 	aws s3 sync s3://$(BUCKET)/data/ data/
 
-deploy:
+deploy_jupyterhub:
 	cd deploy; ansible-galaxy install -r requirements.yml -p ./roles
-	cd deploy; ansible-playbook deploy.yml
+	cd deploy; ansible-playbook deploy_jupyterhub.yml
+
+deploy_dashboards:
+	cd deploy; ansible-galaxy install -r requirements.yml -p ./roles
+	cd deploy; ansible-playbook deploy_dashboards.yml
 
 update_roles:
 	cd deploy; ansible-galaxy install -r requirements.yml -p ./roles --force

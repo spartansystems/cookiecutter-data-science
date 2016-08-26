@@ -1,0 +1,8 @@
+---
+- hosts: dashboards 
+  vars:
+    dashboard_server_port: 80
+  roles:
+    - role: ./roles/spartan_dashboard_role
+      become: true
+      
