@@ -14,6 +14,7 @@
     install_py2kernel: true
     install_py3kernel: true
     install_juliakernel: true
+    install_kernel_gateway: true
     jhc_local_authenticator_create_system_users: true
     jhc_jupyterhub_authenticator_class: 'oauthenticator.google.LocalGoogleOAuthenticator'
     google_login_service: 'Spartan Notebooks'
@@ -31,8 +32,11 @@
         - postgresql-contrib
         - libpq-dev
         - python-numpy
+        - python3-numpy
         - python-scipy
+        - python3-scipy
         - python-matplotlib
+        - python3-matplotlib
       become: true
 
           
